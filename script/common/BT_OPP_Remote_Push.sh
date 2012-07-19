@@ -31,10 +31,6 @@ echo ""
 echo "Received files will be copied to pwd -\
       $PWD"
 
-oppserver &
-sleep 2
 echo -n "Press \"Enter\" to stop the OPP server: "
 echo ""
 read OPP_KEY
-
-killall -9 oppserver &> /dev/null
