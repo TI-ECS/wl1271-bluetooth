@@ -21,11 +21,7 @@ echo "
  * #################################################
  */
  "
-rm   $EXE_PATH/var/run/messagebus.pid &> /dev/null
-rm   $EXE_PATH/var/run/dbus/pid &> /dev/null
-sleep 1
-dbus-daemon --system &> /dev/null &
-insmod `find /lib/modules/ -name "gpio_en.ko"`
+modprobe gpio_en
 sleep 2
 hciattach /dev/ttyO1 texas 3000000 & 
 sleep 5
