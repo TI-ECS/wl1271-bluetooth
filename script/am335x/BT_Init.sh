@@ -32,4 +32,4 @@ sdptool add OPUSH &> /dev/null
 sdptool add FTP &> /dev/null
 dbus-launch --auto-syntax > /tmp/bt-demo-env
 . /tmp/bt-demo-env
-/usr/libexec/obexd -r /usr/share/wl1271-demos/bluetooth/ftp_folder --opp --ftp -a
+/usr/libexec/obexd -r /usr/share/wl1271-demos/bluetooth/ftp_folder -a -p "bluetooth:opp:ftp:filesystem"
