@@ -21,5 +21,3 @@ echo "
 killall -9 obexd                   &> /dev/null
 killall -9 obex-client             &> /dev/null
 killall -9 bluetoothd              &> /dev/null
-killall -SIGTERM hciattach         &> /dev/null
-rmmod gpio_en                      &> /dev/null

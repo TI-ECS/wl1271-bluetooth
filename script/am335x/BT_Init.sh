@@ -21,9 +21,8 @@ echo "
  * #################################################
  */
  "
-modprobe gpio_en
-sleep 2
-hciattach /dev/ttyO1 texas 3000000 & 
+#hciattach /dev/ttyO1 texas 3000000 & 
+hciconfig hci0 up
 sleep 5
 hciconfig hci0 piscan &> /dev/null
 agent --path /org/bluez/agent 0000 &> /dev/null &
