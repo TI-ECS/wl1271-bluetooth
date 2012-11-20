@@ -21,5 +21,5 @@ echo "
 killall -9 obexd                   &> /dev/null
 killall -9 obex-client             &> /dev/null
 killall -9 bluetoothd              &> /dev/null
-killall -SIGTERM hciattach         &> /dev/null
-rmmod gpio_en                      &> /dev/null
+hciconfig hci0 down                &> /dev/null
+modprobe -r bnep rfcomm btwilink bluetooth compat &> /dev/null

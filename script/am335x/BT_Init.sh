@@ -12,7 +12,7 @@
 # * \version 02b,09Dec10, reverted, modified
 # * \version 03a,09Dec10, modified
 # ***************************************************************************/
-
+export GALLERY=/usr/share/wl1271-demos/bluetooth/gallery
 FTP_STORE_PATH=$GALLERY
 echo "
 /*
@@ -21,15 +21,15 @@ echo "
  * #################################################
  */
  "
-modprobe gpio_en
-sleep 2
-hciattach /dev/ttyO1 texas 3000000 & 
+modprobe btwilink || exit 1
+sleep 1
+hciconfig hci0 up
 sleep 5
 hciconfig hci0 piscan &> /dev/null
-agent --path /org/bluez/agent 0000 &> /dev/null &
 sleep 2
 sdptool add OPUSH &> /dev/null
 sdptool add FTP &> /dev/null
 dbus-launch --auto-syntax > /tmp/bt-demo-env
 . /tmp/bt-demo-env
-/usr/libexec/obexd -r /usr/share/wl1271-demos/bluetooth/ftp_folder --opp --ftp -a
+/usr/libexec/obexd -r /usr/share/wl1271-demos/bluetooth/ftp_folder -a -p "bluetooth:opp:ftp:filesystem"
+/usr/libexec/obex-client &

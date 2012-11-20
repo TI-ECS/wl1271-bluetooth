@@ -32,6 +32,12 @@ Note:
       transfer completes. Ensure that its present in the path $GALLERY.
 
 "
+agent --path /org/bluez/agent 0000 &> /dev/null &
+. /tmp/bt-demo-env
 echo -n "Enter Any key After FTP transfer: "
 echo ""
+bt-obex -s &
 read FTP_KEY
+echo "Server is shutting down"
+killall bt-obex 2>&1>/dev/null
+killall agent

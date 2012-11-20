@@ -42,7 +42,7 @@ read LFILE
 
 ls $OPP_FILE_PATH/$LFILE &> /dev/null
 if [ "$?" -ne 0 ]; then
-    yes | bt-obex -p $BD_ADDR $LFILE
+    /usr/share/bluetooth/opp-client -d $BD_ADDR -s $LFILE
 else
-    yes | bt-obex -p $BD_ADDR $OPP_FILE_PATH/$LFILE
+    /usr/share/bluetooth/opp-client -d $BD_ADDR -s $OPP_FILE_PATH/$LFILE
 fi

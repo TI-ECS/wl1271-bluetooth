@@ -1,6 +1,6 @@
 #!/bin/sh
 #/***************************************************************************
-# * \file    BT_Inquiry.sh
+# * \file    BT_Discover.sh
 # *
 # * \brief   Script to scan for the remote BT devices
 # *
@@ -16,4 +16,7 @@ echo "
  * #################################
  */
 "
-hcitool scan --refresh
+echo "Press <Enter> to exit..."
+/usr/share/bluetooth/test-discovery -c &
+read KEY
+killall test-discovery 2>&1 > /dev/null

@@ -31,6 +31,11 @@ echo ""
 echo "Received files will be copied to pwd -\
       $PWD"
 
+. /tmp/bt-demo-env
+agent --path /org/bluez/agent 0000 &> /dev/null &
+bt-obex -s &
 echo -n "Press \"Enter\" to stop the OPP server: "
 echo ""
 read OPP_KEY
+killall bt-obex 2>&1>/dev/null
+killall agent

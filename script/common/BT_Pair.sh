@@ -24,38 +24,5 @@ echo -n "Enter the BD Addr of remote Device to Pair
 ====> "
 read BD_ADDR
 
-echo $BD_ADDR > $BDADDR_FILE
-BD_ADDR_XX=`sed -e s/:/_/g $BDADDR_FILE`
-rm $BDADDR_FILE
-
-BT_ADAPTER=`dbus-send --system --print-reply --dest=org.bluez / \
-org.bluez.Manager.DefaultAdapter|awk '/object path/ {print $3}'`
-
-echo $BT_ADAPTER > $BDADDR_FILE
-BT_ADAPTER=`sed s/\"//g $BDADDR_FILE`
-rm $BDADDR_FILE
-
-
-echo "Pairing with $BD_ADDR, Please wait.."
-echo ""
-dbus-send --system --print-reply --dest=org.bluez  $BT_ADAPTER org.bluez.Adapter.RemoveDevice objpath:$BT_ADAPTER/dev_$BD_ADDR_XX &> /dev/null
-sleep 2
-agent 0000 "$BD_ADDR"
-if [ "$?" -ne 0 ]; then
-   sleep 2
-   dbus-send --system --print-reply --dest=org.bluez  $BT_ADAPTER org.bluez.Adapter.RemoveDevice objpath:$BT_ADAPTER/dev_$BD_ADDR_XX &> /dev/null
-   sleep 2
-   dbus-send --system --print-reply --dest=org.bluez  $BT_ADAPTER org.bluez.Adapter.CreateDevice string:$BD_ADDR &> /dev/null
-   dbus-send --system --print-reply --dest=org.bluez  $BT_ADAPTER/dev_$BD_ADDR_XX org.bluez.Device.DiscoverServices string: &> /dev/null
-   if [ "$?" -ne 0 ]; then
-        echo ""
-        echo "Pairing failure ..."
-   else
-        echo ""
-        echo "Pairing success ..."
-   fi
-else
-   echo ""
-   echo "Pairing success ..."
-fi
-
+echo "Pairing with $BD_ADDR, press 'yes' when asked"
+/usr/share/bluetooth/simple-agent hci0 $BD_ADDR -c "DisplayYesNo" -t 60000

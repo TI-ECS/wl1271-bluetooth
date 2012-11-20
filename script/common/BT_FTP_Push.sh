@@ -45,9 +45,7 @@ read LFILE
 
 ls $FTP_FILE_PATH/$LFILE &> /dev/null                                        
 if [ "$?" -ne 0 ]; then                                                      
-    echo "put $LFILE $LFILE
-        quit" | bt-obex -f $BD_ADDR
+	/usr/share/bluetooth/ftp-client -d $BD_ADDR  -p $LFILE
 else                                                                         
-    echo "put $FTP_FILE_PATH/$LFILE $LFILE
-        quit" | bt-obex -f $BD_ADDR
+	/usr/share/bluetooth/ftp-client -d $BD_ADDR  -p $FTP_FILE_PATH/$LFILE
 fi  
